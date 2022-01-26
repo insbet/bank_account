@@ -44,13 +44,38 @@ public class Transaction {
     }
 
     public Amount balanceAfterTransaction(Amount currentBalance, String sign) {
+        if("+".equals(sign)){
+            amount = currentBalance.addValue(amount.getValue());
+        } else if("-".equals(sign)){
+            amount = currentBalance.subtractValue(amount.getValue());
+        }
         return amount;
     }
 
     public void print(Amount balance) {
+        StringBuilder sBuilder = new StringBuilder();
+        addOperationTo(sBuilder);
+        addDateTo(sBuilder);
+        addValueTo(sBuilder);
+        addCurrentBalanceTo(sBuilder, balance);
+        System.out.println(sBuilder.toString());
     }
 
     private void addCurrentBalanceTo(StringBuilder builder, Amount currentBalance) {
+        builder.append("| ").append(currentBalance.moneyRepresentation());
     }
 
+    private void addOperationTo(StringBuilder builder) {
+        builder.append(action);
+        builder.append(" |");
+    }
+
+    private void addValueTo(StringBuilder builder) {
+        builder.append(amount.moneyRepresentation());
+    }
+
+    private void addDateTo(StringBuilder builder) {
+        builder.append(sdf.format(date));
+        builder.append(" |");
+    }
 }

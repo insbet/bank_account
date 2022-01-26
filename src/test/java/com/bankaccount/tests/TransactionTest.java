@@ -20,7 +20,7 @@ class TransactionTest {
 	void initializeTransaction() throws ParseException {
 		Amount thousand = new Amount(1000);
 
-		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "first transaction");
+		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "transaction");
 		assertEquals(thousand, firstTransaction.getAmount());
 		firstTransaction.setAmount(thousand);
 		assertEquals(thousand, firstTransaction.getAmount());
@@ -33,8 +33,8 @@ class TransactionTest {
 	@Test
 	void depositTransactionToAccount() throws ParseException {
 		Amount thousand = new Amount(1000);
-		Account account = new Account(getAmountOf(0),null);
-		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "first deposit");
+		Account account = new Account(getAmountOf(0));
+		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "deposit");
 		account.deposit(firstTransaction);
 		assertEquals(thousand, account.getBalance());
 
@@ -42,8 +42,8 @@ class TransactionTest {
 
 	@Test
 	void withdrawTransactionToAccount() throws ParseException {
-		Account account = new Account(getAmountOf(1000),null);
-		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "first withdraw");
+		Account account = new Account(getAmountOf(1000));
+		Transaction firstTransaction = new Transaction(getAmountOf(1000), sdf.parse("01/01/2022"), "withdraw");
 		account.withdrawal(firstTransaction);
 		assertEquals(getAmountOf(0), account.getBalance());
 

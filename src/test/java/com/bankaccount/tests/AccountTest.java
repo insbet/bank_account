@@ -19,22 +19,19 @@ class AccountTest{
 
 	@Test
 	void initializeAccount() {
-		Account firstAccount = new Account(getAmountOf(1000),null);
-		firstAccount.printOperation();
+		Account firstAccount = new Account(getAmountOf(1000));
 		assertEquals(getAmountOf(1000), firstAccount.getBalance());
-		Account secondAccount = new Account(null,new Operation());
-		secondAccount.printOperation();
+		Account secondAccount = new Account(new Operation());
 		assertEquals(getAmountOf(0), secondAccount.getBalance());
 		Account thirdAccount = new Account(getAmountOf(1000), new Operation());
-		thirdAccount.printOperation();
 		assertEquals(getAmountOf(1000), thirdAccount.getBalance());
 	}
 
 	@Test
 	void withdrawal() throws ParseException {
-		Account account = new Account(getAmountOf(1000),null);
+		Account account = new Account(getAmountOf(1000));
 		Date withdrawalDate = sdf.parse("01/01/2022");
-		Transaction transaction = new Transaction(getAmountOf(500), withdrawalDate, "first withdraw");
+		Transaction transaction = new Transaction(getAmountOf(500), withdrawalDate, "withdraw");
 		account.withdrawal(transaction);
 		account.printOperation();
 		assertEquals(getAmountOf(500), account.getBalance());
@@ -42,12 +39,11 @@ class AccountTest{
 
 	@Test
 	void deposit() throws ParseException {
-		Account account = new Account(getAmountOf(0),null);
+		Account account = new Account(getAmountOf(0));
 		Date withdrawalDate = sdf.parse("01/01/2022");
-		Transaction transaction = new Transaction(getAmountOf(500), withdrawalDate, "first deposit");
+		Transaction transaction = new Transaction(getAmountOf(500), withdrawalDate, "deposit");
 		account.deposit(transaction);
 		account.printOperation();
 		assertEquals(getAmountOf(500), account.getBalance());
-
 	}
 }

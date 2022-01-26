@@ -1,10 +1,13 @@
 package com.bankaccount.bo;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Amount {
 
     private double value;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     public Amount(double value) {
         this.value = value;
@@ -26,8 +29,16 @@ public class Amount {
         return getAmountOf(this.value - value);
     }
 
+    public Amount absoluteValue() {
+        return getAmountOf(Math.abs(value));
+    }
+
     public boolean isGreaterThan(Amount otherAmount) {
         return this.value > otherAmount.value;
+    }
+
+    public String moneyRepresentation() {
+        return decimalFormat.format(value);
     }
 
     public static Amount getAmountOf(double amount) {
